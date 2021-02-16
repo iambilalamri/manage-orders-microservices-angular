@@ -1,5 +1,7 @@
 package com.amrib.ecom.model;
 
+import org.springframework.data.annotation.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-
+	@Id
 	private String productId;
 	private String name;
 	private String code;
