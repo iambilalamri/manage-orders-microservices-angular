@@ -7,16 +7,18 @@ import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitio
 import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableEurekaClient
 public class GatewayServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayServiceApplication.class, args);
 	}
 
-	@Bean
+	// @Bean
 	RouteLocator staticRoute(RouteLocatorBuilder locaBuilder) {
 		// lb: load balancer
 		return locaBuilder.routes().route("r1", r -> r.path("/customers/**").uri("lb://CLIENT-SERVICE"))
@@ -24,7 +26,7 @@ public class GatewayServiceApplication {
 				.route("r3", r -> r.path("/factures/**").uri("lb://FACTURE-SERVICE")).build();
 	}
 
-	// @Bean
+	@Bean
 	DiscoveryClientRouteDefinitionLocator dynamicRoute(ReactiveDiscoveryClient discoveryClient,
 			DiscoveryLocatorProperties properties) {
 		return new DiscoveryClientRouteDefinitionLocator(discoveryClient, properties);
