@@ -20,7 +20,8 @@ public class GatewayServiceApplication {
 	RouteLocator staticRoute(RouteLocatorBuilder locaBuilder) {
 		// lb: load balancer
 		return locaBuilder.routes().route("r1", r -> r.path("/customers/**").uri("lb://CLIENT-SERVICE"))
-				.route("r2", r -> r.path("/products/**").uri("lb://STOCK-SERVICE")).build();
+				.route("r2", r -> r.path("/products/**").uri("lb://STOCK-SERVICE"))
+				.route("r3", r -> r.path("/factures/**").uri("lb://FACTURE-SERVICE")).build();
 	}
 
 	// @Bean
