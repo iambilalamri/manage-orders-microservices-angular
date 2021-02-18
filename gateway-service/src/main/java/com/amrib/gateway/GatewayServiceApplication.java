@@ -8,8 +8,6 @@ import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.codec.ServerCodecConfigurer;
-import org.springframework.web.reactive.config.EnableWebFlux;
 
 @SpringBootApplication
 public class GatewayServiceApplication {
