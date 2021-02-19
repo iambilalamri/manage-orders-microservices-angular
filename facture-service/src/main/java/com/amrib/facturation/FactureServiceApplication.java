@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import com.amrib.facturation.model.Customer;
 import com.amrib.facturation.model.Facture;
@@ -27,8 +28,9 @@ public class FactureServiceApplication {
 
 	@Bean
 	CommandLineRunner start(FactureRepository factureRepository, ProductItemRepository itemRepository,
-			CustomerService customerService) {
+			CustomerService customerService, RepositoryRestConfiguration configuration) {
 		return args -> {
+			configuration.exposeIdsFor(Facture.class);
 			Customer c1 = customerService.findCustomerById(1L);
 			System.out.println("****************************");
 			System.out.println(c1);
