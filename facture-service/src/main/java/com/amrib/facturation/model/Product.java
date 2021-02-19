@@ -1,29 +1,27 @@
 package com.amrib.facturation.model;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Facture implements Serializable {
+@ToString
+public class Product {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Date factureDate;
-	private Long customerId;
-	@OneToMany(mappedBy = "facture")
-	private Collection<ProductItem> productItems;
+	private Long productId;
+	private String name;
+	private String description;
+	private double price;
+
 }

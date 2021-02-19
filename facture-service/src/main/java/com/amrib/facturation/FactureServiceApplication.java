@@ -9,13 +9,16 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.hateoas.PagedModel;
 
 import com.amrib.facturation.model.Customer;
 import com.amrib.facturation.model.Facture;
+import com.amrib.facturation.model.Product;
 import com.amrib.facturation.model.ProductItem;
 import com.amrib.facturation.repository.FactureRepository;
 import com.amrib.facturation.repository.ProductItemRepository;
 import com.amrib.facturation.services.CustomerService;
+import com.amrib.facturation.services.ProductService;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -28,17 +31,19 @@ public class FactureServiceApplication {
 
 	@Bean
 	CommandLineRunner start(FactureRepository factureRepository, ProductItemRepository itemRepository,
-			CustomerService customerService, RepositoryRestConfiguration configuration) {
+			CustomerService customerService, ProductService productService, RepositoryRestConfiguration configuration) {
 		return args -> {
 			configuration.exposeIdsFor(Facture.class);
 			Customer c1 = customerService.findCustomerById(1L);
 			System.out.println("****************************");
 			System.out.println(c1);
 			System.out.println("****************************");
-			Facture facture1 = factureRepository.save(new Facture(null, new Date(), 1L, null));
-			itemRepository.save(new ProductItem(null, 800.0, 25, facture1, 1L));
-			itemRepository.save(new ProductItem(null, 700.0, 25, facture1, 2L));
-			itemRepository.save(new ProductItem(null, 600.0, 25, facture1, 3L));
+			Facture facture1 = factureRepository.save(new Facture(null, new Date(), c1.getId(), null));
+
+			PagedModel<Product> products = productService.findAllProducts();
+			products.getContent().forEach(p -> {
+				itemRepository.save(new ProductItem(null, p.getPrice(), 25, facture1, p.getProductId()));
+			});
 		};
 	}
 }
