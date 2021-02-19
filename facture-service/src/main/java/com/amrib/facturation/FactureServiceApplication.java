@@ -38,11 +38,11 @@ public class FactureServiceApplication {
 			System.out.println("****************************");
 			System.out.println(c1);
 			System.out.println("****************************");
-			Facture facture1 = factureRepository.save(new Facture(null, new Date(), c1.getId(), null));
+			Facture facture1 = factureRepository.save(new Facture(null, new Date(), c1.getId(), null, null));
 
 			PagedModel<Product> products = productService.findAllProducts();
 			products.getContent().forEach(p -> {
-				itemRepository.save(new ProductItem(null, p.getPrice(), 25, facture1, p.getProductId()));
+				itemRepository.save(new ProductItem(null, p.getPrice(), 25, facture1, p.getProductId(), null));
 			});
 		};
 	}

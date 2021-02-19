@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,8 @@ public class Facture implements Serializable {
 	private Long id;
 	private Date factureDate;
 	private Long customerId;
+	@Transient
+	private Customer customer;
 	@OneToMany(mappedBy = "facture")
 	private Collection<ProductItem> productItems;
 }
