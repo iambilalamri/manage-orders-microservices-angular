@@ -16,4 +16,13 @@ public class CircuitBreakerController {
 		data.put("countries", "France, Canada, Italie, ...");
 		return data;
 	}
+
+	@GetMapping("/defaultSalats")
+	public Map<String, String> salats() {
+		Map<String, String> data = new HashMap<String, String>();
+		data.put("Fajr", "5:00");
+		data.put("evening", "19:30");
+		data.put("message", "Horaire de Salat en Senegal");
+		return data;
+	}
 }
